@@ -41,7 +41,7 @@
       <HintPath>..\packages\LibUsbDotNet.2.2.8\lib\LibUsbDotNet.dll</HintPath>
     </Reference>
     <Reference Include="Phidget21Net">
-      <HintPath>..\packages\Phidget21.Net\lib\Phidget21.NET.dll</HintPath>
+      <HintPath>..\Libraries\Phidget21.NET.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
