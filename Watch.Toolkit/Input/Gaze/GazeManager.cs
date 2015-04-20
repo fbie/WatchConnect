@@ -8,6 +8,12 @@ using TETCSharpClient;
 
 namespace Watch.Toolkit.Input.Gaze
 {
+	/// <summary>
+	/// Gaze manager manages communication with The Eye Tribe tracker server
+	/// and dispatches simplified gaze frames via events. The Gaze manager
+	/// should be thread safe and there is no need to deal with the
+	/// TET client or any of its types directly.
+	/// </summary>
     public sealed class GazeManager : IInputManager
     {
 		readonly object sync;
@@ -40,6 +46,11 @@ namespace Watch.Toolkit.Input.Gaze
 
 		bool running;
 
+		/// <summary>
+		/// Initializes a new instance of <see cref="Watch.Toolkit.Input.Gaze.GazeManager"/>. There should
+		/// only ever be one instance per program.
+		/// </summary>
+		/// <param name="cacheSize">Number of frames to cache for smoothing. Must be at least 1.</param>
 		public GazeManager(uint cacheSize)
         {
 			sync = new object();
@@ -50,6 +61,10 @@ namespace Watch.Toolkit.Input.Gaze
 			running = false;
         }
 
+		/// <summary>
+		/// Initializes the TheEyeTribe tracker. Throws an exception
+		/// if the tracker could not be activated.
+		/// </summary>
         public void Start()
         {
 			lock (sync)
@@ -62,6 +77,9 @@ namespace Watch.Toolkit.Input.Gaze
 			}
         }
 
+		/// <summary>
+		/// Stops the TheEyeTribe tracker.
+		/// </summary>
         public void Stop()
         {
 			lock (sync)
