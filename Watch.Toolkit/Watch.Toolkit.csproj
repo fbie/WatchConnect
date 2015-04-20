@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -30,9 +30,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accord">
@@ -78,6 +75,11 @@
     <Compile Include="Input\DataEventMonitor.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Input\Gaze\GazeEvents.cs" />
+    <Compile Include="Input\Gaze\GazeFrame.cs" />
+    <Compile Include="Input\Gaze\GazeLaundry.cs" />
+    <Compile Include="Input\Gaze\GazeManager.cs" />
+    <Compile Include="Input\Gaze\GazeStateListener.cs" />
     <Compile Include="Input\Gestures\GestureEvents.cs" />
     <Compile Include="Input\Touch\TouchEvents.cs" />
     <Compile Include="Input\Tracker\TrackerEvents.cs" />
@@ -146,10 +148,12 @@
       <DependentUpon>WatchRuntime.xaml</DependentUpon>
     </Compile>
     <Compile Include="Interface\WindowManager.cs" />
+    <Compile Include="Input\Gaze\GazeFrameEventArgs.cs" />
+    <Compile Include="Input\Gaze\GazeStateEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Watch.Toolkit.Hardware\Watch.Toolkit.Hardware.csproj">
-      <Project>{67be83b9-ee89-4ec2-8b57-aafe1af46699}</Project>
+      <Project>{67BE83B9-EE89-4EC2-8B57-AAFE1AF46699}</Project>
       <Name>Watch.Toolkit.Hardware</Name>
     </ProjectReference>
   </ItemGroup>
