@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Watch.Toolkit.Input.Gaze
 {
-    protected class GazeLaundry
+    class GazeLaundry
     {
         readonly GazeFrame[] cache;
         int p;

@@ -79,7 +79,7 @@ namespace Watch.Toolkit.Input.Gaze
 			EventHandler<GazeFrameEventArgs> evt;
 			lock (sync)
 			{
-				evt = newGazeFrame;
+				evt = newGazeFrameListeners;
 			}
 			if (evt != null)
 				evt(this, new GazeFrameEventArgs(frame));
@@ -90,7 +90,7 @@ namespace Watch.Toolkit.Input.Gaze
 			EventHandler<GazeStateEventArgs> evt;
 			lock (sync)
 			{
-				evt = gazeStateChanged;
+				evt = gazeStateChangedListeners;
 			}
 			if (evt != null)
 				evt(this, new GazeStateEventArgs(tracking));
