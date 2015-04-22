@@ -7,9 +7,9 @@ namespace Watch.Toolkit.Input.Gaze
 {
     class Vec2D
     {
-        public readonly int X, Y;
+        public readonly double X, Y;
 
-        public Vec2D(int x, int y)
+        public Vec2D(double x, double y)
         {
             X = x;
             Y = y;
@@ -18,7 +18,7 @@ namespace Watch.Toolkit.Input.Gaze
 
     interface IShape
     {
-        bool Contains(int x, int y);
+        bool Contains(double x, double y);
     }
 
     class Rectangle: IShape
@@ -31,7 +31,7 @@ namespace Watch.Toolkit.Input.Gaze
             LowerRight = lowerRight;
         }
 
-        public bool Contains(int x, int y)
+        public bool Contains(double x, double y)
         {
             return UpperLeft.X <= x && x <= LowerRight.X && UpperLeft.Y <= y && y <= LowerRight.Y;
         }
@@ -47,14 +47,14 @@ namespace Watch.Toolkit.Input.Gaze
             Vertices = vertices;
             Bounds = new Rectangle(
                 new Vec2D(
-                    Vertices.Select(v => v.X).Min,
-                    Vertices.Select(v => v.Y).Min),
+                    Vertices.Select(v => v.X).Min(),
+                    Vertices.Select(v => v.Y).Min()),
                 new Vec2D(
-                    Vertices.Select(v => v.X).Max,
-                    Vertices.Select(v => v.Y).Max));
+                    Vertices.Select(v => v.X).Max(),
+                    Vertices.Select(v => v.Y).Max()));
         }
 
-        public bool Contains(int x, int y)
+        public bool Contains(double x, double y)
         {
             return Bounds.Contains(x, y) && IsInsidePoly(x, y);
         }
@@ -66,10 +66,9 @@ namespace Watch.Toolkit.Input.Gaze
         /// <returns><c>true</c> if the point at x and y is inside this polygon; <c>false</c>, otherwise.</returns>
         /// <param name="x">The x coordinate of the point to test.</param>
         /// <param name="y">The y coordinate of the point to test.</param>
-        bool IsInsidePoly(int x, int y)
+        bool IsInsidePoly(double x, double y)
         {
             bool inside = false;
-	    int x = 1;
             for (int i = 0, j = Vertices.Length - 1; i < Vertices.Length; j = i++)
             {
                 if (Vertices[i].Y > y != Vertices[j].Y > y
@@ -93,20 +92,20 @@ namespace Watch.Toolkit.Input.Gaze
 
     public interface GazePattern
     {
-        public GazePosition ComputeGazePosition(GazeFrame frame);
+        GazePosition ComputeGazePosition(GazeFrame frame);
     }
 
     public class MalteserCross : GazePattern
     {
         const int MARGIN = 50; // pixels
-        readonly Dictionary<GazeEvents, IShape> Patterns;
+        readonly Dictionary<GazePosition, IShape> Patterns;
 
-        public GazePattern(int areaWidth, int areaHeight, int screenWidth, int screenHeight)
+        public MalteserCross(int areaWidth, int areaHeight, int screenWidth, int screenHeight)
         {
             var c = new Rectangle(
                 new Vec2D(areaWidth / 2 - screenWidth / 2, areaHeight / 2 - screenHeight / 2),
                 new Vec2D(areaWidth / 2 + screenWidth / 2, areaHeight / 2 + screenHeight / 2));
-            Patterns = new Dictionary<GazeEvents, IShape>();
+            Patterns = new Dictionary<GazePosition, IShape>();
             Patterns.Add(GazePosition.Center, c);
             Patterns.Add(GazePosition.Above, new ConvexPolygon(new []{
                         new Vec2D(MARGIN, 0),
@@ -139,7 +138,7 @@ namespace Watch.Toolkit.Input.Gaze
         /// </summary>
         public GazePosition ComputeGazePosition(GazeFrame frame)
         {
-            foreach(var pos in Enum.GetValues(typeof(GazePosition)))
+            foreach(GazePosition pos in Enum.GetValues(typeof(GazePosition)))
             {
                 if (pos != GazePosition.Unknown && Patterns[pos].Contains(frame.X, frame.Y))
                     return pos;
