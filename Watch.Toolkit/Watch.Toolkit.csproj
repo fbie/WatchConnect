@@ -75,7 +75,6 @@
     <Compile Include="Input\DataEventMonitor.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Input\Gaze\GazeEvents.cs" />
     <Compile Include="Input\Gaze\GazeFrame.cs" />
     <Compile Include="Input\Gaze\GazeLaundry.cs" />
     <Compile Include="Input\Gaze\GazeManager.cs" />
@@ -150,12 +149,7 @@
     <Compile Include="Interface\WindowManager.cs" />
     <Compile Include="Input\Gaze\GazeFrameEventArgs.cs" />
     <Compile Include="Input\Gaze\GazeStateEventArgs.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Watch.Toolkit.Hardware\Watch.Toolkit.Hardware.csproj">
-      <Project>{67BE83B9-EE89-4EC2-8B57-AAFE1AF46699}</Project>
-      <Name>Watch.Toolkit.Hardware</Name>
-    </ProjectReference>
+    <Compile Include="Processing\Recognizers\GazePositionRecognizer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
