@@ -1,4 +1,5 @@
-﻿using System;
+﻿// -*- mode: csharp; c-basic-offset: 4; indent-tabs-mode: nil -*-
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -113,6 +114,6 @@ namespace Watch.Toolkit.Input.Gaze
 			if (evt != null)
 				evt(this, new GazeStateEventArgs(tracking));
 		}
-			
+
     }
 }
